@@ -1,0 +1,32 @@
+body {
+  margin: 0px;
+}
+
+.home {
+  display: grid;
+  grid-template-rows: 4em minmax(80vh, auto) 10em;
+  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-areas: 
+    " header    header        header    "
+    " .         home-content  .         "
+    " footer    footer        footer    "
+  ;
+}
+
+.header {
+  grid-area: header;
+  background-color: #f6c6c6;
+}
+
+.home-content {
+  grid-area: home-content;
+  display: flex;
+  flex: grow;
+  flex-direction: vertical;
+  background-color: #c2eaf1;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #d0bdee;
+}
