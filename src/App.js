@@ -1,16 +1,25 @@
-import React from 'react';
-import logo from './assets/logo.svg';
+import React, { useState } from 'react';
 import './assets/App.css';
-import News from './components/News.js'
 
-function App() {
+import Header from './components/Header'
+import News from './components/News'
+
+function App() {  
+  const [theme, setTheme] = useState('light')
+  
+  function changeAppTheme (newTheme) {
+    setTheme(newTheme)
+  }
+  
   return (
-    <div className="home">
-      <div className="header"></div>
-      <div className="home-content">
-        <News/>
+    <div className={"app " + theme}>
+      <div className="home">
+        <Header onThemeChange={changeAppTheme}/>
+        <div className="home-content">
+          <p>Welcome!</p>
+        </div>
+        <div className="footer"></div>
       </div>
-      <div className="footer"></div>
     </div>
   );
 }
