@@ -9,21 +9,26 @@ const LS_THEME_KEY = 'newsPanda.theme';
 export default function Header({ onThemeChange }) {
   const [lsTheme, saveThemeToLs] = useLocalStorage(LS_THEME_KEY, 'light')
 
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(lsTheme)
   const [themeDropdown, toggleThemeDropdown] = useState(false);
 
-  useEffect(() => {
+  useEffect(_ => {
+    onThemeChange(theme)
+  }, [])
+  
+  useEffect(_ => {
     onThemeChange(theme)
     saveThemeToLs(theme)
   }, [theme])
 
-  useEffect(() => {
+  useEffect(_ => {
     onThemeChange(lsTheme)
     saveThemeToLs(lsTheme)
   }, [lsTheme])
 
   return (
     <div className="header">
+      {themeDropdown && <div className="overlay-invisible" onClick={_ => toggleThemeDropdown(false)}></div>}
       <ul className="nav-list">
         <li className="nav-item">
           <a href="#">
