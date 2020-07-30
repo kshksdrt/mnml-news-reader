@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './assets/App.css';
 
 import Header from './components/Header'
-import News from './components/News'
+import MainView from './components/MainView'
+import Footer from './components/Footer';
+
+import { GlobalContext } from './state/Store'
 
 function App() {  
-  const [theme, setTheme] = useState('light')
-  
-  function changeAppTheme (newTheme) {
-    setTheme(newTheme)
-  }
-  
+  const [state, dispatch] = useContext(GlobalContext)
+
   return (
-    <div className={"app " + theme}>
+    <div className={"app " + state.theme}>
       <div className="home">
-        <Header onThemeChange={changeAppTheme}/>
-        <div className="home-content">
-          <p>Welcome!</p>
-        </div>
-        <div className="footer"></div>
+        <Header />
+        <MainView />
+        <Footer />
       </div>
     </div>
   );
