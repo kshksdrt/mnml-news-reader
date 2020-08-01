@@ -53,7 +53,7 @@ body::-webkit-scrollbar-thumb {
 
 .home {
   display: grid;
-  grid-template-rows: 4em minmax(90vh, auto) 6em;
+  grid-template-rows: 4em minmax(100vh, auto) 6em;
   grid-template-columns: 1fr 6fr 1fr;
   grid-template-areas: 
     " header    header        header    "
@@ -69,6 +69,10 @@ body::-webkit-scrollbar-thumb {
   box-shadow:           0px 1px 6px 2px #00000020; */
 }
 
+.header > * {
+  cursor: pointer;
+}
+
 .home-content {
   grid-area: home-content;
   margin-top: 20px;
@@ -80,12 +84,18 @@ body::-webkit-scrollbar-thumb {
 
 .footer {
   grid-area: footer;
+  margin: auto;
+}
+
+.footer > p {
+  margin: auto;
+  text-align: center;
 }
 
 @media only screen and (max-width: 500px) {
   .home {
     display: grid;
-    grid-template-rows: 4em minmax(90vh, auto) 6em;
+    grid-template-rows: 4em minmax(100vh, auto) 6em;
     grid-template-columns: 0fr 1fr 0fr;
     grid-template-areas: 
       " header    header        header    "

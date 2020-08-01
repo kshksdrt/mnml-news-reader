@@ -3,7 +3,8 @@ import React from 'react'
 export default function Footer() {
   return (
     <div className="footer">
-      This is a footer.
+      <p>News Panda</p>
+      <p>A personalized feed with useful information</p>
     </div>
   )
 }

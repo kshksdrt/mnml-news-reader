@@ -2,7 +2,8 @@ import React, {createContext, useReducer} from "react";
 import reducer from './Reducer';
 
 const defaultState = {
-  theme: 'light'
+  theme: 'light',
+  subreddits: ['news', 'technology'],
 }
 
 export const GlobalContext = createContext(defaultState);

@@ -1,14 +1,43 @@
 export default function (state, action) {
-  switch (action.type) {
+  const { type, payload } = action
 
-    case 'SET_THEME':
-      if (!['dark', 'light'].includes(action.payload)) return state;
+  switch (type) {
+
+    case 'SET_THEME': {
+      if (!['dark', 'light'].includes(payload)) return state;
       return {
         ...state,
-        theme: action.payload
+        theme: payload
       };
+    };
+    
+    case 'ADD_SUBREDDIT': {
+      if (typeof payload !== 'string') return state;
+      if (state.subreddits.includes(payload)) return state;
+      const subreddits = [...state.subreddits, payload];
+      return {
+        ...state,
+        subreddits
+      };
+    };
+      
+    case 'DELETE_SUBREDDIT': {
+      if (typeof payload !== 'string') return state;
+      const subreddits = state.subreddits.filter(element => {
+        return element !== payload
+      });
+      return {
+        ...state,
+        subreddits
+      };
+    };
+
+    case 'IMPORT_SUBREDDITS_LIST': {
+      state.subreddits = payload
+    }
   
-    default:
+    default: {
       return state;
+    }
   }
 }

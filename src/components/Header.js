@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 import useLocalStorage from '../hooks/useLocalStorage'
 import { GlobalContext } from '../state/Store'
@@ -10,11 +11,11 @@ import {ReactComponent as Moon} from '../assets/moon.svg'
 const LS_THEME_KEY = 'newsPanda.theme';
 
 export default function Header() {
-  const [lsTheme, saveThemeToLs] = useLocalStorage(LS_THEME_KEY, 'light')
-
-  const [theme, setTheme] = useState(lsTheme)
   const [themeDropdown, toggleThemeDropdown] = useState(false);
 
+  const [lsTheme, saveThemeToLs] = useLocalStorage(LS_THEME_KEY)
+  const [theme, setTheme] = useState(lsTheme)
+  
   const [state, dispatch] = useContext(GlobalContext)
   
   useEffect(_ => {
@@ -35,18 +36,18 @@ export default function Header() {
       {themeDropdown && <div className="overlay-invisible" onClick={_ => toggleThemeDropdown(false)}></div>}
       <ul className="nav-list">
         <li className="nav-item">
-          <a href="#">
+          <Link to="/">
             <Logo className="nav-logo" />
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="#">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li className="nav-item">
-          <a href="#">Sources</a>
+          <Link to="/sources">Sources</Link>
         </li>
         <li className="nav-item dropdown-trigger">
-          <a href="#" onClick={_ => toggleThemeDropdown(themeDropdown => !themeDropdown)}>Theme</a>
+          <a onClick={_ => toggleThemeDropdown(themeDropdown => !themeDropdown)}>Theme</a>
           {themeDropdown && <div className="dropdown-target">
             <div onClick={_ => onThemeSelected('light')}>
               <Sun/>
@@ -60,7 +61,7 @@ export default function Header() {
           </div>}
         </li>
         <li className="nav-item">
-          <a href="#">About</a>
+          <Link to="/about">About</Link>
         </li>
       </ul>
     </div>
