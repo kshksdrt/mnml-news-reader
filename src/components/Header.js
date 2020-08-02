@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import useLocalStorage from '../hooks/useLocalStorage'
 import { GlobalContext } from '../state/Store'
 
 import {ReactComponent as Logo} from '../assets/logo.svg'
-import {ReactComponent as Sun} from '../assets/sun.svg'
-import {ReactComponent as Moon} from '../assets/moon.svg'
+import {ReactComponent as Sun} from '../assets/icons/sun.svg'
+import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 
-const LS_THEME_KEY = 'newsPanda.theme';
 
 export default function Header() {
+  const [theme, setTheme] = useState()
   const [themeDropdown, toggleThemeDropdown] = useState(false);
 
-  const [lsTheme, saveThemeToLs] = useLocalStorage(LS_THEME_KEY)
-  const [theme, setTheme] = useState(lsTheme)
-  
   const [state, dispatch] = useContext(GlobalContext)
   
   useEffect(_ => {
@@ -23,8 +19,7 @@ export default function Header() {
       type: 'SET_THEME',
       payload: theme
     })
-    saveThemeToLs(theme)
-  }, [theme, lsTheme])
+  }, [theme])
 
   function onThemeSelected (value) {
     setTheme(value)

@@ -34,6 +34,7 @@ export default function (state, action) {
 
     case 'IMPORT_SUBREDDITS_LIST': {
       state.subreddits = payload
+      return state
     }
   
     default: {

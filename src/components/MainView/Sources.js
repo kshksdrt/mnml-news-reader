@@ -1,29 +1,17 @@
 import React, { useRef, useContext, useEffect } from 'react'
-import useLocalStorage from '../../hooks/useLocalStorage'
+import { ReactComponent as Add } from '../../assets/icons/add.svg'
+import { ReactComponent as Remove } from '../../assets/icons/remove.svg'
+
 import { GlobalContext } from '../../state/Store'
 
-const LS_SUBREDDITS_KEY = 'newsPanda.subreddits'
-
 export default function Sources() {
-  const [lsSubreddits, saveSubredditsToLs] = useLocalStorage(LS_SUBREDDITS_KEY)
   const [state, dispatch] = useContext(GlobalContext)
   
   const addSubredditInput = useRef()
 
-  useEffect(_ => {
-    saveSubredditsToLs(state.subreddits)
-  }, [state.subreddits])
-
-  useEffect(_ => {
-    dispatch({
-      type: 'IMPORT_SUBREDDITS_LIST',
-      payload: lsSubreddits
-    })
-  }, [])
-
-  async function addSubreddit () {
+  function addSubreddit () {
     const subredditName = addSubredditInput.current.value
-    if (subredditName !== 0) {
+    if (subredditName.length !== 0) {
       dispatch({
         type: 'ADD_SUBREDDIT',
         payload: subredditName
@@ -32,14 +20,29 @@ export default function Sources() {
     addSubredditInput.current.value = ''
   }
 
+  function removeSubreddit (subredditName) {
+    dispatch({
+      type: 'DELETE_SUBREDDIT',
+      payload: subredditName
+    })
+  }
+
   return (
     <div>
-      <div className="flex-row">
-        <input ref={addSubredditInput} type="text" />
-        <button onClick={_ => addSubreddit()}>Add</button>
+      <div>
+        <h3 className="title">Add a subreddit</h3><br></br>
+        <div className="input-accept">
+          <input className="input" placeholder="Subreddit name" ref={addSubredditInput} type="text"  style={{flexGrow: 1}}></input>
+          <Add onClick={_ => addSubreddit()} className= "icon-button" />
+        </div>
         {
           state.subreddits.map(element => {
-            return <p key={element}>{element}</p>
+            return (
+              <div id="add-subreddits-listitem" key={element}>
+                <p key={element}>{element}</p>
+                <Remove className="icon-button" onClick={_ => removeSubreddit(element)} />
+              </div>
+            )
           })
         }
       </div>
