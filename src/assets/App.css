@@ -11,30 +11,54 @@ h4 h3 h2 h1 {
 }
 
 :root {
-  --gray0: #f8f8f8;
-  --gray1: #EEEEEE;
-  --gray2: #E0E0E0;
-  --gray3: #BDBDBD;
-  --gray4: #616161;
-  --gray5: #353535;
-  --gray6: #212121;
-  --green: #AED581;
-  --orange: #FFB74D;
+  --gray0: #FAFAFA;
+  --gray1: #F5F5F5;
+  --gray2: #EEEEEE;
+  --gray3: #E0E0E0;
+  --gray4: #BDBDBD;
+  --gray5: #707070;
+  --gray6: #575757;
+  --gray7: #3a3a3a;
+  --gray8: #2a2a2a;
+  --gray9: #212121;
+  --teal: #030303;
+  --orange: #FF7043;
+  --blue: #5C6BC0;
+  --green-light: #C8E6C9;
+  --green-dark: #1B5E20;
 }
 
 /* Theming */
 .light {
   --bg-absolute: #ffffff;
   --bg: var(--gray0);
-  --text: var(--gray6);
-  --hover: var(--gray1);
+  --bg-1: var(--gray1);
+  --bg-2: var(--gray2);
+  --bg-3: var(--gray3);
+  --bg-4: var(--gray4);
+  --bg-5: var(--gray5);
+  --bg-6: var(--gray6);
+  --bg-7: var(--gray7);
+  --bg-8: var(--gray8);
+  --bg-9: var(--gray9);
+  --text: var(--gray9);
+  --highlight: var(--green-dark);
 }
 
 .dark {
   --bg-absolute: #000000;
-  --bg: var(--gray6);
+  --bg: var(--gray9);
+  --bg-1: var(--gray8);
+  --bg-2: var(--gray7);
+  --bg-3: var(--gray6);
+  --bg-4: var(--gray5);
+  --bg-5: var(--gray4);
+  --bg-6: var(--gray3);
+  --bg-7: var(--gray2);
+  --bg-8: var(--gray1);
+  --bg-9: var(--gray0);
   --text: var(--gray0);
-  --hover: var(--gray5);
+  --highlight: var(--green-light);
 }
 
 body {
@@ -98,7 +122,12 @@ body::-webkit-scrollbar-thumb {
 
 .footer {
   grid-area: footer;
-  margin: auto;
+  font-size: small;
+  color: var(--bg-2);
+  border-style: solid;
+  border-width: 1px 0 0 0;
+  border-color: var(--bg-1);
+  padding-top: 30px;
 }
 
 .footer > p {
@@ -152,7 +181,7 @@ svg {
 }
 
 .nav-item > a:hover {
-  background: var(--hover);
+  background: var(--bg-1);
   border-radius: 4px;
 }
 
@@ -301,7 +330,7 @@ tab-item > * {
   width: 300px;
   flex-grow: 1;
   align-items: center;
-  background: var(--hover);
+  background: var(--bg-1);
   border-radius: 2px;
   margin: 10px 0;
   padding: 0 10px;
@@ -342,4 +371,81 @@ tab-item > * {
 
 .input:focus {
   border-bottom: 2px solid var(--text);
+}
+
+.storycard {
+  background: var(--bg-1);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--bg-2);
+  border-radius: 4px;
+  padding: 22px 16px;
+  margin-bottom: 10px;
+}
+
+.storycard:hover {
+  border-color: rgba(0, 0, 0, 0);
+  transition: all 250ms;
+}
+
+.storycard-title {
+  color: var(--text);
+  margin-top: 0px;
+  font-weight: 500;
+  transition: all 170ms ease-in-out;
+}
+
+.storycard-title:hover {
+  cursor: pointer;
+  color: var(--highlight);
+  text-decoration: underline;
+}
+
+.storycard-info {
+  display: inline;
+}
+
+.storycard-info:hover {
+  cursor: default;
+}
+
+.storycard-info > * {
+  display: inherit;
+  margin-right: 10px;
+  font-size: small;
+  opacity: 0.8;
+}
+
+.storycard:hover .storycard-info {
+  opacity: 1.0;
+}
+
+.info-blue {
+  color: var(--blue);
+}
+
+.info-gray {
+  color: var(--gray5);
+}
+
+.info-orange {
+  color: var(--orange);
+}
+
+.info-teal {
+  color: var(--teal);
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
