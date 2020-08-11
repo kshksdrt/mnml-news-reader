@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Content from './Home/Content'
 import { GlobalContext } from '../../state/Store'
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
           })
         }
       </div>
+      <Content subredditName={currentTab} />
     </div>
   )
 }

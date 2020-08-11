@@ -1,10 +1,13 @@
 import React, {createContext, useReducer, useEffect} from "react";
 import reducer from './Reducer';
 import useLocalStorage from "../hooks/useLocalStorage";
+import news from '../assets/news.json'
+import technology from '../assets/technology.json'
 
 const defaultState = {
   theme: 'light',
   subreddits: ['technology', 'news'],
+  developmentJson: { news, technology }
 }
 
 const LS_KEYS = {
