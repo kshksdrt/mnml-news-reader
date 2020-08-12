@@ -1,2 +1,2 @@
-# News panda
+# mnlm-news-reader
 A news reader

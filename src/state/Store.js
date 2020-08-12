@@ -11,8 +11,8 @@ const defaultState = {
 }
 
 const LS_KEYS = {
-  subreddits: 'newsPanda.subreddits',
-  theme: 'newsPanda.theme'
+  subreddits: 'mnlm-news-reader.subreddits',
+  theme: 'mnlm-news-reader.theme'
 }
 
 export const GlobalContext = createContext(defaultState);

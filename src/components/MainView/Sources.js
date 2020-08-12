@@ -28,24 +28,22 @@ export default function Sources() {
   }
 
   return (
-    <div>
-      <div>
-        <h3 className="title">Add a subreddit</h3><br></br>
-        <div className="input-accept">
-          <input className="input" placeholder="Subreddit name" ref={addSubredditInput} type="text"  style={{flexGrow: 1}}></input>
-          <Add onClick={_ => addSubreddit()} className= "icon-button" />
-        </div>
-        {
-          state.subreddits.map(element => {
-            return (
-              <div id="add-subreddits-listitem" key={element}>
-                <p key={element}>{element}</p>
-                <Remove className="icon-button" onClick={_ => removeSubreddit(element)} />
-              </div>
-            )
-          })
-        }
+    <div id="sources">
+      <h3 className="title">Add a subreddit</h3><br></br>
+      <div className="input-accept">
+        <input className="input" placeholder="Subreddit name" ref={addSubredditInput} type="text"></input>
+        <Add onClick={_ => addSubreddit()} className= "icon-button" />
       </div>
+      {
+        state.subreddits.map(element => {
+          return (
+            <div id="add-subreddits-listitem" key={element}>
+              <p key={element}>{element}</p>
+              <Remove className="icon-button" onClick={_ => removeSubreddit(element)} />
+            </div>
+          )
+        })
+      }
     </div>
   )
 }
