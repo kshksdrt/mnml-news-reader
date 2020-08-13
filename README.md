@@ -1,2 +1,2 @@
-# mnlm-news-reader
+# mnml-news-reader
 A news reader

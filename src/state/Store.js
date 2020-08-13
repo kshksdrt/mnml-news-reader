@@ -8,8 +8,8 @@ const defaultState = {
 }
 
 const LS_KEYS = {
-  subreddits: 'mnlm-news-reader.subreddits',
-  theme: 'mnlm-news-reader.theme'
+  subreddits: 'mnml-news-reader.subreddits',
+  theme: 'mnml-news-reader.theme'
 }
 
 export const GlobalContext = createContext(defaultState);
