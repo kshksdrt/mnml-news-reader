@@ -101,24 +101,30 @@ body::-webkit-scrollbar-thumb {
   ;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (min-width: 1200px) {
   .home {
-    display: grid;
-    grid-template-rows: 4em minmax(100vh, auto) 6em;
-    grid-template-columns: 0fr 1fr 0fr;
-    grid-template-areas: 
-      " header    header        header    "
-      " .         home-content  .         "
-      " footer    footer        footer    "
-    ;
+    grid-template-columns: 1fr 2fr 1fr;
   }
-}
-
-@media only screen and (min-width: 550px) {
+    
   .nav-bottom {
     visibility: hidden;
   }
-  
+}
+
+@media only screen and (min-width: 550px) and (max-width: 1200px) {
+  .home {
+    grid-template-columns: 1fr 6fr 1fr;
+  }
+
+  .nav-bottom {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .home {
+    grid-template-columns: 0fr 1fr 0fr;
+  }
 }
 
 .header {
@@ -437,13 +443,13 @@ tab-item > * {
 .storycard-title {
   color: var(--text);
   margin-top: 0px;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 1.6rem;
   transition: all 170ms ease-in-out;
 }
 
 .storycard-title:hover {
   cursor: pointer;
-  color: var(--highlight);
   text-decoration: underline;
 }
 
@@ -494,10 +500,6 @@ tab-item > * {
 
 .link:hover {
   text-decoration: underline;
-}
-
-#sources {
-  margin: 0 20px;
 }
 
 #content {
@@ -570,6 +572,11 @@ tab-item > * {
   margin-right: 12px;
 }
 
+.mx-4 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .my-1 {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -583,6 +590,11 @@ tab-item > * {
 .my-3 {
   margin-top: 12px;
   margin-bottom: 12px;
+}
+
+.my-4 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .text-small {

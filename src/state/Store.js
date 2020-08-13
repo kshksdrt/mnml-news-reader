@@ -3,8 +3,8 @@ import reducer from './Reducer';
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const defaultState = {
-  theme: 'light',
-  subreddits: ['technology', 'news'],
+  theme: 'dark',
+  subreddits: ['technology', 'upliftingnews', 'frontpage'],
 }
 
 const LS_KEYS = {

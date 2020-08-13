@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Device types: xs, md, lg
 
-export default function useWindowDimensions() {
+export default function useBreakPoints () {
   const [width, setWidth] = useState(window.innerWidth)
   const [type, setType] = useState('md')
 

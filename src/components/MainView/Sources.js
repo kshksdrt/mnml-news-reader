@@ -9,21 +9,23 @@ export default function Sources() {
   const [state, dispatch] = useContext(GlobalContext)
   
   const [addError, setAddError] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const addSubredditInput = useRef()
 
   function addSubreddit () {
+    setLoader(true)
     const subredditName = addSubredditInput.current.value
+    if (subredditName.length === 0) showAddError()
     axios.get(`https://www.reddit.com/r/${subredditName}/top/.json`)
     .then(_ => {
-      if (subredditName.length !== 0) {
-        dispatch({
-          type: 'ADD_SUBREDDIT',
-          payload: subredditName
-        })
-      }
+      dispatch({type: 'ADD_SUBREDDIT', payload: subredditName})
+      setLoader(false)
     })
-    .catch(_ => showAddError())
+    .catch(_ => {
+      showAddError()
+      setLoader(false)
+    })
     addSubredditInput.current.value = ''
   }
 
@@ -41,8 +43,8 @@ export default function Sources() {
   }
 
   return (
-    <div id="sources">
-      <h3 className="title">Add a subreddit</h3><br></br>
+    <div className="mx-4">
+      <h3>Add a subreddit</h3><br></br>
       <div className="input-accept">
         <input className="input" placeholder="Subreddit name" ref={addSubredditInput} type="text"></input>
         <Add onClick={_ => addSubreddit()} className= "icon-button" />
@@ -58,6 +60,12 @@ export default function Sources() {
       {addError &&
         <div id="add-subreddits-listitem" style={{background: "var(--danger)"}}>
           <p>Error adding subreddit</p>
+        </div>
+      }
+      {loader &&
+        <div id="add-subreddits-listitem" style={{background: "var(--bg-1)"}}>
+          <div className="loader my-3"></div>
+          <div></div>
         </div>
       }
     </div>
