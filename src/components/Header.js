@@ -11,7 +11,7 @@ import {ReactComponent as Moon} from '../assets/icons/moon.svg'
 export default function Header() {
   const [theme, setTheme] = useState()
   const [themeDropdown, toggleThemeDropdown] = useState(false);
-  const {width, type} = useBreakpoints()
+  const { type } = useBreakpoints()
 
   const [state, dispatch] = useContext(GlobalContext)
   
@@ -28,8 +28,8 @@ export default function Header() {
   }
 
   function toggleTheme () {
-    if (state.theme == 'light') setTheme('dark')
-    if (state.theme == 'dark') setTheme('light')
+    if (state.theme === 'light') setTheme('dark')
+    if (state.theme === 'dark') setTheme('light')
   }
 
   return (
