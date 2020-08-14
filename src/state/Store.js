@@ -4,7 +4,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 const defaultState = {
   theme: 'dark',
-  subreddits: ['technology', 'upliftingnews', 'frontpage'],
+  subreddits: ['technology', 'worldnews'],
 }
 
 const LS_KEYS = {
