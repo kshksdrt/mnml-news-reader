@@ -15,14 +15,8 @@ export default function MainView() {
     if (e.deltaY < 0) setBottomNavState(true)
   }
 
-  function handleScroll (e) {
-    console.log(e.detail)
-    // if (e.deltaY > 0) setBottomNavState(false)
-    // if (e.deltaY < 0) setBottomNavState(true)
-  }
-
   return (
-    <div className="home-content" onWheel={e => handleWheel(e)} onScroll={e => handleScroll(e)}>
+    <div className="home-content" onWheel={e => handleWheel(e)}>
       <Route exact path="/" component={Home} />
       <Route exact path="/sources" component={Sources} />
       <Route exact path="/about" component={About} />
