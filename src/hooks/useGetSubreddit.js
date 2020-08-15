@@ -86,7 +86,7 @@ function onInitialLoad (dispatch, payload) {
   dispatch({type: 'making-request'})
   axios({
     method: 'get',
-    url: `${BASE_URL}/${payload.subreddit}/top/.json`,
+    url: `${BASE_URL}/${payload.subreddit}/hot/.json`,
     params: {
       limit: 15,
     }
@@ -109,7 +109,7 @@ function onLoadMore (dispatch, payload) {
   dispatch({type: 'requesting-next-page'})
   axios({
     method: 'get',
-    url: `${BASE_URL}/${payload.subreddit}/top/.json`,
+    url: `${BASE_URL}/${payload.subreddit}/hot/.json`,
     params: {
       limit: 15,
       after: payload.after
