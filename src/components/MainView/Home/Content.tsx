@@ -4,18 +4,19 @@ import StoryCard from "./StoryCard";
 import useGetSubbreddit from "../../../hooks/useGetSubreddit";
 import { ReactComponent as Error } from "../../../assets/icons/error.svg";
 
-export default function Content({ subredditName }) {
-  const [state, api] = useGetSubbreddit({
-    type: "initial-load",
-    subreddit: subredditName,
-  });
+interface Props {
+  subredditName: string;
+}
 
-  useEffect(
-    (_) => {
-      api({ type: "initial-load", payload: { subreddit: subredditName } });
-    },
-    [subredditName]
-  );
+const Content: React.FC<Props> = ({ subredditName }) => {
+  const [state, api] = useGetSubbreddit();
+
+  useEffect(() => {
+    api({
+      type: "initial-load",
+      payload: { subreddit: subredditName },
+    });
+  }, [subredditName]);
 
   function loadMore() {
     const after = state.stories[state.stories.length - 1].name;
@@ -24,7 +25,7 @@ export default function Content({ subredditName }) {
 
   return (
     <div id="content">
-      {state.stories.map((story) => {
+      {state.stories.map((story: Record<string, any>) => {
         return <StoryCard key={story.name} story={story} />;
       })}
       {state.loading && <div className="loader"></div>}
@@ -43,4 +44,6 @@ export default function Content({ subredditName }) {
       )}
     </div>
   );
-}
+};
+
+export default Content;

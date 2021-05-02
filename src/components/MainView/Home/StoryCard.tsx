@@ -1,7 +1,11 @@
 import React from "react";
 
-export default function StoryCard({ story }) {
-  function openInReddit(permalink) {
+interface Props {
+  story: Record<string, any>;
+}
+
+const StoryCard: React.FC<Props> = ({ story }) => {
+  function openInReddit(permalink: string) {
     window.open(
       `https://www.reddit.com/${permalink}`,
       "_blank",
@@ -13,7 +17,7 @@ export default function StoryCard({ story }) {
     <div className="storycard">
       <p
         className="storycard-title"
-        onClick={(_) => openInReddit(story.permalink)}
+        onClick={() => openInReddit(story.permalink)}
       >
         {story.title}
       </p>
@@ -31,4 +35,6 @@ export default function StoryCard({ story }) {
       </div>
     </div>
   );
-}
+};
+
+export default StoryCard;

@@ -1,40 +1,37 @@
 import React, { useRef, useContext, useState } from "react";
+
 import { ReactComponent as Add } from "../../assets/icons/add.svg";
 import { ReactComponent as Remove } from "../../assets/icons/remove.svg";
 
-import { GlobalContext } from "../../state/Store";
 import axios from "axios";
+import { addSubreddit, deleteSubreddit } from "../../redux/actionCreator";
+import { connect, ConnectedProps } from "react-redux";
+import { AppState } from "../../types";
 
-export default function Sources() {
-  const [state, dispatch] = useContext(GlobalContext);
+type Props = ConnectedProps<typeof connector>;
+
+const Sources: React.FC<Props> = (props) => {
+  const { subreddits, $addSubreddit, $deleteSubreddit } = props;
 
   const [addError, setAddError] = useState(false);
   const [loader, setLoader] = useState(false);
 
-  const addSubredditInput = useRef();
+  const [input, setInput] = useState("");
 
   function addSubreddit() {
     setLoader(true);
-    const subredditName = addSubredditInput.current.value;
-    if (subredditName.length === 0) showAddError();
+    if (input.length === 0) showAddError();
     axios
-      .get(`https://www.reddit.com/r/${subredditName}/top/.json`)
-      .then((_) => {
-        dispatch({ type: "ADD_SUBREDDIT", payload: subredditName });
+      .get(`https://www.reddit.com/r/${input}/top/.json`)
+      .then(() => {
+        $addSubreddit(input);
         setLoader(false);
       })
-      .catch((_) => {
+      .catch(() => {
         showAddError();
         setLoader(false);
       });
-    addSubredditInput.current.value = "";
-  }
-
-  function removeSubreddit(subredditName) {
-    dispatch({
-      type: "DELETE_SUBREDDIT",
-      payload: subredditName,
-    });
+    setInput("");
   }
 
   async function showAddError() {
@@ -51,18 +48,18 @@ export default function Sources() {
         <input
           className="input"
           placeholder="Subreddit name"
-          ref={addSubredditInput}
+          value={input}
           type="text"
         ></input>
-        <Add onClick={(_) => addSubreddit()} className="icon-button" />
+        <Add onClick={() => addSubreddit()} className="icon-button" />
       </div>
-      {state.subreddits.map((element) => {
+      {subreddits.map((subreddit) => {
         return (
-          <div id="add-subreddits-listitem" key={element}>
-            <p key={element}>{element}</p>
+          <div id="add-subreddits-listitem" key={subreddit}>
+            <p key={subreddit}>{subreddit}</p>
             <Remove
               className="icon-button"
-              onClick={(_) => removeSubreddit(element)}
+              onClick={() => $deleteSubreddit(subreddit)}
             />
           </div>
         );
@@ -83,4 +80,21 @@ export default function Sources() {
       )}
     </div>
   );
-}
+};
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    subreddits: state.subreddits,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    $addSubreddit: (s: string) => dispatch(addSubreddit(s)),
+    $deleteSubreddit: (s: string) => dispatch(deleteSubreddit(s)),
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Sources);

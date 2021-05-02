@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Footer() {
+const Footer: React.FC = React.memo(() => {
   return (
     <div className="footer">
       <p style={{ fontWeight: 800 }}>MNML News Reader</p>
@@ -9,4 +9,6 @@ export default function Footer() {
       </p>
     </div>
   );
-}
+});
+
+export default Footer;
