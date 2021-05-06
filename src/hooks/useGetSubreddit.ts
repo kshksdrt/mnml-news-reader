@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import axios from "axios";
 import { formatDistance } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 const initialState = {
   stories: [] as Record<string, any>[],
@@ -139,8 +140,12 @@ function onLoadMore(dispatch: React.Dispatch<{}>, payload: Record<string, any>) 
 
 function storiesCompressor(stories: Record<string, any>[]) {
   return stories.map((each) => {
-    const { title, score, domain, url, permalink, created, name } = each.data;
-    const time = formatDistance(new Date(Date.now() - created * 1000), new Date(), { addSuffix: true });
+    const { title, score, domain, url, permalink, created_utc, name } = each.data;
+    const time = formatDistance(
+      created_utc * 1000,
+      Date.now(),
+      { addSuffix: true },
+    );
     return { title, score, domain, url, permalink, time, name };
   });
 }
