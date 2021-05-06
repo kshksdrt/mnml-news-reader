@@ -31,7 +31,7 @@ const MainView: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    view: state.view,
+    view: state.app.view,
   };
 };
 

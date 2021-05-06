@@ -25,7 +25,7 @@ const App: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    theme: state.theme,
+    theme: state.app.theme,
   };
 };
 

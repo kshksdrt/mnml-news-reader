@@ -43,10 +43,10 @@ const Header: React.FC<Props> = (props) => {
         {type !== "xs" && (
           <ul className="nav-list">
             <li className="nav-item">
-              <div onClick={() => setView("home")}>Home</div>
+              <a onClick={() => setView("home")}>Home</a>
             </li>
             <li className="nav-item">
-              <div onClick={() => setView("home")}>Sources</div>
+              <a onClick={() => setView("sources")}>Sources</a>
             </li>
             <li className="nav-item dropdown-trigger">
               <a
@@ -71,7 +71,7 @@ const Header: React.FC<Props> = (props) => {
               )}
             </li>
             <li className="nav-item">
-              <div onClick={() => setView("home")}>About</div>
+              <a onClick={() => setView("about")}>About</a>
             </li>
           </ul>
         )}
@@ -88,7 +88,7 @@ const Header: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    theme: state.theme,
+    theme: state.app.theme,
   };
 };
 

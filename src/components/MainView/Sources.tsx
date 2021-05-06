@@ -84,7 +84,7 @@ const Sources: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    subreddits: state.subreddits,
+    subreddits: state.app.subreddits,
   };
 };
 

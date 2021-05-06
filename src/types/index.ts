@@ -3,7 +3,9 @@ export type View = "home" | "sources" | "about";
 export type Theme = "light" | "dark";
 
 export interface AppState {
-  view: "home" | "about" | "sources";
-  theme: "dark" | "light";
-  subreddits: Array<"technology" | "worldnews">;
+  app: {
+    view: "home" | "about" | "sources";
+    theme: "dark" | "light";
+    subreddits: Array<"technology" | "worldnews" | string>;
+  }
 }

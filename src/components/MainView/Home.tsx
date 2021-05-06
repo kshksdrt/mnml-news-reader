@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Content from "./Home/Content";
 
 import { connect, ConnectedProps } from "react-redux";
@@ -17,19 +17,15 @@ const Home: React.FC<Props> = (props) => {
   return (
     <div>
       <div className="tabs">
-        {subreddits.map((element) => {
-          return (
-            <div
-              className={`tab-item ${
-                currentTab === element ? "tab-active" : ""
-              }`}
-              onClick={() => setCurrentTab(element)}
-              key={element}
-            >
-              <span>{element}</span>
-            </div>
-          );
-        })}
+        {subreddits.map((element) => (
+          <div
+            className={`tab-item ${currentTab === element ? "tab-active" : ""}`}
+            onClick={() => setCurrentTab(element)}
+            key={element}
+          >
+            <span>{element}</span>
+          </div>
+        ))}
       </div>
       <Content subredditName={currentTab} />
     </div>
@@ -38,7 +34,7 @@ const Home: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    subreddits: state.subreddits,
+    subreddits: state.app.subreddits,
   };
 };
 

@@ -5,7 +5,7 @@ const initialState = {
   view: "home",
   theme: "dark",
   subreddits: ["technology", "worldnews"],
-} as AppState;
+} as AppState["app"];
 
 const appSlice = createSlice({
   name: "app",
