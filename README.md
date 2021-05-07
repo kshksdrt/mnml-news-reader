@@ -1,3 +1,3 @@
-# Todos
+# MNML News Reader
 
-[ ] Make creating subreddits work.
+A simple and minimalistic reedit client, suitable for reading news.

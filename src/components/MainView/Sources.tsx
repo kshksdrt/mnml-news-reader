@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { ReactComponent as Add } from "../../assets/icons/add.svg";
 import { ReactComponent as Remove } from "../../assets/icons/remove.svg";
@@ -16,7 +16,16 @@ const Sources: React.FC<Props> = (props) => {
   const [addError, setAddError] = useState(false);
   const [loader, setLoader] = useState(false);
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState("");
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInput(e.target.value);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.code === "Enter") addSubreddit();
+  }
 
   function addSubreddit() {
     setLoader(true);
@@ -26,12 +35,13 @@ const Sources: React.FC<Props> = (props) => {
       .then(() => {
         $addSubreddit(input);
         setLoader(false);
+        setInput("");
       })
       .catch(() => {
         showAddError();
         setLoader(false);
+        inputRef.current?.focus();
       });
-    setInput("");
   }
 
   async function showAddError() {
@@ -48,10 +58,13 @@ const Sources: React.FC<Props> = (props) => {
         <input
           className="input"
           placeholder="Subreddit name"
+          ref={inputRef}
           value={input}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           type="text"
-        ></input>
-        <Add onClick={() => addSubreddit()} className="icon-button" />
+        />
+        <Add onClick={addSubreddit} className="icon-button" />
       </div>
       {subreddits.map((subreddit) => {
         return (
