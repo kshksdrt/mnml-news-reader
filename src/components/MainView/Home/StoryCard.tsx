@@ -5,22 +5,16 @@ interface Props {
 }
 
 const StoryCard: React.FC<Props> = ({ story }) => {
-  function openInReddit(permalink: string) {
-    window.open(
-      `https://www.reddit.com/${permalink}`,
-      "_blank",
-      "noopener noreferrer"
-    );
-  }
-
   return (
     <div className="storycard">
-      <p
+      <a
         className="storycard-title"
-        onClick={() => openInReddit(story.permalink)}
+        href={`https://www.reddit.com/${story.permalink}`}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {story.title}
-      </p>
+      </a>
       <div className="storycard-info">
         <p className="info-orange">{`${story.score} points`}</p>
         <a
