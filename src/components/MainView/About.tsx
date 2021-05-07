@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function About() {
+const About: React.FC = React.memo(() => {
   return (
     <div className="mx-4 my-4">
       <h1>Welcome to MNML news reader!</h1>
@@ -26,4 +26,6 @@ export default function About() {
       </ul>
     </div>
   );
-}
+});
+
+export default About;

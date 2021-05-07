@@ -1,5 +1,3 @@
-# mnml-news-reader
+# MNML News Reader
 
-A simple reddit client, suitable for reading news, built with React.
-
-![MNML_preview](https://user-images.githubusercontent.com/34638773/103138154-ed662100-46cf-11eb-9071-a93ec20bdebb.png)
+A simple and minimalistic reedit client, suitable for reading news.

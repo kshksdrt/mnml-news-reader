@@ -1,14 +1,16 @@
-import { useReducer } from "react";
+import React, { useReducer } from "react";
 import axios from "axios";
+import { formatDistance } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 const initialState = {
-  stories: [],
+  stories: [] as Record<string, any>[],
   loading: true,
   error: false,
   errorMessage: "",
 };
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: any) {
   switch (action.type) {
     case "making-request":
       return {
@@ -61,28 +63,30 @@ function reducer(state, action) {
 
 const BASE_URL = "https://www.reddit.com/r";
 
+type ApiReqType = "initial-load" | "load-more"
+type Config = { type: ApiReqType, payload: any }
+
 export default function useGetSubbreddit() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  function api({ type, payload }) {
+  function api(config: Config) {
+    const { type, payload } = config
     switch (type) {
       case "initial-load":
         onInitialLoad(dispatch, payload);
         break;
-
       case "load-more":
         onLoadMore(dispatch, payload);
         break;
-
       default:
         return;
     }
   }
 
-  return [state, api];
+  return [state, api] as [typeof initialState, (c: Config) => void];
 }
 
-function onInitialLoad(dispatch, payload) {
+function onInitialLoad(dispatch: React.Dispatch<{}>, payload: Record<string, any>) {
   dispatch({ type: "making-request" });
   axios({
     method: "get",
@@ -106,7 +110,7 @@ function onInitialLoad(dispatch, payload) {
     });
 }
 
-function onLoadMore(dispatch, payload) {
+function onLoadMore(dispatch: React.Dispatch<{}>, payload: Record<string, any>) {
   const y = window.scrollY;
   dispatch({ type: "requesting-next-page" });
   axios({
@@ -131,25 +135,17 @@ function onLoadMore(dispatch, payload) {
       console.log(error);
       dispatch({ type: "error", payload: { error: "Cannot load posts" } });
     })
-    .finally((_) => window.scrollTo(0, y));
+    .finally(() => window.scrollTo(0, y));
 }
 
-function storiesCompressor(stories) {
+function storiesCompressor(stories: Record<string, any>[]) {
   return stories.map((each) => {
-    const { title, score, domain, url, permalink, created, name } = each.data;
-    const time = getReadableTime(Date.now() - created * 1000);
+    const { title, score, domain, url, permalink, created_utc, name } = each.data;
+    const time = formatDistance(
+      created_utc * 1000,
+      Date.now(),
+      { addSuffix: true },
+    );
     return { title, score, domain, url, permalink, time, name };
   });
-}
-
-function getReadableTime(ms) {
-  const seconds = (ms / 1000).toFixed(1);
-  const minutes = (ms / (1000 * 60)).toFixed(1);
-  const hours = (ms / (1000 * 60 * 60)).toFixed(1);
-  const days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-
-  if (seconds < 60) return `${Math.floor(seconds)} seconds ago`;
-  if (minutes < 60) return `${Math.floor(minutes)} minutes ago`;
-  if (hours < 60) return `${Math.floor(hours)} hours ago`;
-  if (days < 60) return `${Math.floor(days)} days ago`;
 }

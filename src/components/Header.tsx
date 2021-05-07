@@ -1,38 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-import { GlobalContext } from "../state/Store";
 import useBreakpoints from "../hooks/useBreakpoints";
 
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as Sun } from "../assets/icons/sun.svg";
 import { ReactComponent as Moon } from "../assets/icons/moon.svg";
 
-export default function Header() {
-  const [theme, setTheme] = useState();
+import { AppState, Theme, View } from "../types";
+import { setTheme, setView } from "../redux/actionCreator";
+import { connect, ConnectedProps } from "react-redux";
+
+type Props = ConnectedProps<typeof connector>;
+
+const Header: React.FC<Props> = (props) => {
   const [themeDropdown, toggleThemeDropdown] = useState(false);
   const { type } = useBreakpoints();
 
-  const [state, dispatch] = useContext(GlobalContext);
+  const { setView, theme, setTheme } = props;
 
-  useEffect(
-    (_) => {
-      dispatch({
-        type: "SET_THEME",
-        payload: theme,
-      });
-    },
-    [theme]
-  );
-
-  function onThemeSelected(value) {
+  function onThemeSelected(value: Theme) {
     setTheme(value);
     toggleThemeDropdown(false);
   }
 
   function toggleTheme() {
-    if (state.theme === "light") setTheme("dark");
-    if (state.theme === "dark") setTheme("light");
+    if (theme === "light") setTheme("dark");
+    if (theme === "dark") setTheme("light");
   }
 
   return (
@@ -40,24 +33,24 @@ export default function Header() {
       {themeDropdown && (
         <div
           className="overlay-invisible"
-          onClick={(_) => toggleThemeDropdown(false)}
+          onClick={() => toggleThemeDropdown(false)}
         ></div>
       )}
       <div className="navbar">
-        <Link to="/" className="navbar-logo-container">
+        <div onClick={() => setView("home")} className="navbar-logo-container">
           <Logo className="nav-logo" />
-        </Link>
+        </div>
         {type !== "xs" && (
           <ul className="nav-list">
             <li className="nav-item">
-              <Link to="/">Home</Link>
+              <a onClick={() => setView("home")}>Home</a>
             </li>
             <li className="nav-item">
-              <Link to="/sources">Sources</Link>
+              <a onClick={() => setView("sources")}>Sources</a>
             </li>
             <li className="nav-item dropdown-trigger">
               <a
-                onClick={(_) =>
+                onClick={() =>
                   toggleThemeDropdown((themeDropdown) => !themeDropdown)
                 }
               >
@@ -65,12 +58,12 @@ export default function Header() {
               </a>
               {themeDropdown && (
                 <div className="dropdown-target">
-                  <div onClick={(_) => onThemeSelected("light")}>
+                  <div onClick={() => onThemeSelected("light")}>
                     <Sun />
                     <p>Light</p>
                   </div>
                   <hr></hr>
-                  <div onClick={(_) => onThemeSelected("dark")}>
+                  <div onClick={() => onThemeSelected("dark")}>
                     <Moon />
                     <p>Dark</p>
                   </div>
@@ -78,17 +71,33 @@ export default function Header() {
               )}
             </li>
             <li className="nav-item">
-              <Link to="/about">About</Link>
+              <a onClick={() => setView("about")}>About</a>
             </li>
           </ul>
         )}
         {type === "xs" && (
           <div id="themeToggler" onClick={toggleTheme}>
-            {state.theme === "dark" && <Sun />}
-            {state.theme === "light" && <Moon />}
+            {theme === "dark" && <Sun />}
+            {theme === "light" && <Moon />}
           </div>
         )}
       </div>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    theme: state.app.theme,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    setView: (view: View) => dispatch(setView(view)),
+    setTheme: (theme: Theme) => dispatch(setTheme(theme)),
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(Header);

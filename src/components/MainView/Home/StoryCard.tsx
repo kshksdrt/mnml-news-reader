@@ -1,22 +1,20 @@
 import React from "react";
 
-export default function StoryCard({ story }) {
-  function openInReddit(permalink) {
-    window.open(
-      `https://www.reddit.com/${permalink}`,
-      "_blank",
-      "noopener noreferrer"
-    );
-  }
+interface Props {
+  story: Record<string, any>;
+}
 
+const StoryCard: React.FC<Props> = ({ story }) => {
   return (
     <div className="storycard">
-      <p
+      <a
         className="storycard-title"
-        onClick={(_) => openInReddit(story.permalink)}
+        href={`https://www.reddit.com/${story.permalink}`}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {story.title}
-      </p>
+      </a>
       <div className="storycard-info">
         <p className="info-orange">{`${story.score} points`}</p>
         <a
@@ -31,4 +29,6 @@ export default function StoryCard({ story }) {
       </div>
     </div>
   );
-}
+};
+
+export default StoryCard;
